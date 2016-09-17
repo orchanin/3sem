@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+ * FIXIT: плохое название для константы, т.к. неясно, что за "число".
+ * Вероятно вы имели ввиду MAX_TOKENS_COUNT или что-то такое...
+ */
 #define NUMBER 50
 
 void Split(char* string, char* delimiters,
@@ -9,6 +13,10 @@ void Split(char* string, char* delimiters,
 
 int main(int argc, char const *argv[])
 {
+/*
+ * FIXIT: не должно быть в коде магических чисел вроде 10000.
+ * Создайте константу, из названия которой ясно, зачем она нужна.
+ */
 	char* str = (char*)malloc(10000 * sizeof(char));
 	char* delimiters = (char*)malloc(NUMBER * sizeof(char));
 	gets(str);
@@ -42,11 +50,11 @@ int main(int argc, char const *argv[])
 void Split(char* string, char* delimiters,
 		   char*** tokens, int* tokensCount)
 {
-	char** matrix = *tokens;					
+	char** matrix = *tokens;
 	char* temp = NULL;
 	temp = strtok(string, delimiters);
 	if (temp == NULL) {
-		printf("eror");
+		printf("error\n");
 		return;
 	}
 	while (temp != NULL){

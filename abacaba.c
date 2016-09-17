@@ -1,12 +1,18 @@
  #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 void GenerateString(int n, char* string);
 
 int main (void)
 {
     int n;
     scanf("%d", &n);
+/*
+ * Форматируйте код аккуратнее. Следующая строка должна быть такой:
+ * char* string = (char*)malloc(sizeof(char) * (1 << (n + 1)));
+ * Вокруг любого бинарного оператора ставьте пробелы. Лишних ставить не надо.
+ */
     char* string = (char*)malloc(sizeof(char)* (1 << (n+1) ));
     GenerateString(n, string);
     free(string);
