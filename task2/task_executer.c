@@ -24,24 +24,23 @@ int main(int argc, char const *argv[])
     FILE *file;
     file = fopen("test.txt", "w+t");
     fprintf(file, "3\n");
-    fprintf(file, "5 ls -l\n");
-    fprintf(file, "3 pwd\n");
+    fprintf(file, "7 ls -l\n");
+    fprintf(file, "1 pwd\n");
     fprintf(file, "4 echo Hello, World !\n");
 	fclose(file);
 	file = fopen("test.txt", "r");
 	
-    fgets(buffer, 128, file);g
+    fgets(buffer, 128, file);
 	int count = atoi(buffer);
  
     for (int i = 0; i < count; i++)							   
     {	
     	fgets(buffer, 128, file);
-    	printf("%d - %s\n", i, buffer);
     	pid_t pid = fork();
     	if (pid == 0)
     	{
     		Split(buffer, delimiters, &tokens, &tokensCount);
-			sleep(atoi(tokens[0]));		
+			sleep(atoi(tokens[0]));
 			execvp(tokens[1], tokens + 1);
 		}
 	}
@@ -51,6 +50,7 @@ int main(int argc, char const *argv[])
 		free(tokens[i]);
 	}
 	fclose(file);
+
 	return 0;	
 }
 
