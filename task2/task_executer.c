@@ -32,10 +32,7 @@ int main(int argc, char const *argv[])
 	
     fgets(buffer, 128, file);g
 	int count = atoi(buffer);
-    //=========================================================
-	//############## creating child processes #################
-	//#########which will do the commands by execvp ###########
-    //=========================================================
+ 
     for (int i = 0; i < count; i++)							   
     {	
     	fgets(buffer, 128, file);
@@ -48,9 +45,7 @@ int main(int argc, char const *argv[])
 			execvp(tokens[1], tokens + 1);
 		}
 	}
-	//=========================================================
-	//#########################################################
-    //=========================================================
+	
 	for(i = 0; i < MAX_TOKENS_COUNT; i++)
 	{
 		free(tokens[i]);

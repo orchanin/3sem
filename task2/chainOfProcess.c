@@ -15,22 +15,19 @@ int main(int argc, char const *argv[])
 	for (int i = 0; i < N - 1; ++i)
 	{
 		
-		if (getpid() == currentParId){
-			
+		if (getpid() == currentParId)
+		{	
 			printf("Process № %d\nppid - %d\n",getpid(),getppid());
 			sleep(1);
 			pid_t pid = fork();
 			
 			if(getpid() == currentParId)
 			{
-
 				printf("Waiting for finishing Process № %d\n\n", pid);
 				wait(&status);
 				printf("Process №%d is finishing\n", getpid());
 				exit(0);
-
 			}
-			
 			currentParId = getpid();
 		}
 	}
