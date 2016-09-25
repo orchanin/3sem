@@ -8,12 +8,7 @@ int main (void)
 {
     int n;
     scanf("%d", &n);
-/*
- * Форматируйте код аккуратнее. Следующая строка должна быть такой:
- * char* string = (char*)malloc(sizeof(char) * (1 << (n + 1)));
- * Вокруг любого бинарного оператора ставьте пробелы. Лишних ставить не надо.
- */
-    char* string = (char*)malloc(sizeof(char)* (1 << (n+1) ));
+    char* string = (char*)malloc(sizeof(char) * (1 << (n+1)));
     GenerateString(n, string);
     free(string);
 }
@@ -22,7 +17,7 @@ void GenerateString(int n, char* string)
 {  
     int count = 1;
     int len;
-    *string = 'a';  //string[0] = 'a'
+    *string = 'a';
     while (count != n + 1)
     {
         printf("%s\n", string);
@@ -34,5 +29,4 @@ void GenerateString(int n, char* string)
         string[2 * len + 1] = '\0';
         count++;
     } 
-
 }

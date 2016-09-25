@@ -2,30 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
- * FIXIT: плохое название для константы, т.к. неясно, что за "число".
- * Вероятно вы имели ввиду MAX_TOKENS_COUNT или что-то такое...
- */
-#define NUMBER 50
+#define MAX_TOKENS_COUNT 50
+#define MAX_STR_LEN 1000
 
 void Split(char* string, char* delimiters,
 		   char*** tokens, int* tokensCount);
 
 int main(int argc, char const *argv[])
 {
-/*
- * FIXIT: не должно быть в коде магических чисел вроде 10000.
- * Создайте константу, из названия которой ясно, зачем она нужна.
- */
-	char* str = (char*)malloc(10000 * sizeof(char));
-	char* delimiters = (char*)malloc(NUMBER * sizeof(char));
+	char* str = (char*)malloc(MAX_STR_LEN * sizeof(char));
+	char* delimiters = (char*)malloc(MAX_TOKENS_COUNT * sizeof(char));
 	gets(str);
 	gets(delimiters);
-	char** tokens = (char**)malloc(sizeof(char*) * NUMBER);
+	char** tokens = (char**)malloc(sizeof(char*) * MAX_TOKENS_COUNT);
 	int i = 0;
-	for(i = 0; i < NUMBER; i++)
+	for(i = 0; i < MAX_TOKENS_COUNT; i++)
 	{
-		tokens[i] = (char*)malloc(NUMBER * sizeof(char));
+		tokens[i] = (char*)malloc(MAX_TOKENS_COUNT * sizeof(char));
 	}
 	int tokensCount = 0;
 	
@@ -35,7 +28,7 @@ int main(int argc, char const *argv[])
 	{
 		printf("%s\n", tokens[i]);
 	}
-	for(i = 0; i < NUMBER; i++)
+	for(i = 0; i < MAX_TOKENS_COUNT; i++)
 	{
 		if(tokens[i])
 			free(tokens[i]);
