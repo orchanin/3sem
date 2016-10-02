@@ -5,7 +5,7 @@
 #include "string.h"
 
 #define MAX_TOKENS_COUNT 50
-#define BUFFER_MAX_LEN 128
+#define BUFFER_MAX_LENGTH 128
 
 void Split(char* string, char* delimiters,
 		   char*** tokens, int* tokensCount);
