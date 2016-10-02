@@ -13,7 +13,7 @@ void Split(char* string, char* delimiters,
 int main(int argc, char const *argv[])
 {
 	FILE *file;
-	char buffer[BUFFER_MAX_LEN];
+	char buffer[BUFFER_MAX_LENGTH];
  	
  	file = fopen("test.txt", "r");
 	
@@ -24,13 +24,13 @@ int main(int argc, char const *argv[])
 		tokens[i] = (char*)malloc(MAX_TOKENS_COUNT * sizeof(char));
 	}
 	int tokensCount = 0;
-	char delimiters[2] = {' ','\n'};
-	fgets(buffer, 128, file);
+	char delimiters[] = {' ','\n'};
+	fgets(buffer, BUFFER_MAX_LENGTH, file);
 	int count = atoi(buffer);
 
 	for (int i = 0; i < count; i++)
 	{
-		fgets(buffer, 128, file);
+		fgets(buffer, BUFFER_MAX_LENGTH, file);
 		pid_t pid = fork();
 
 		if (pid == 0)
