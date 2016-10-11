@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define DATA_SIZE 1000000000	
+#define DATA_SIZE 100000000	
 
 /*************************************
 / Set here number of cores of your CPU
@@ -19,7 +19,7 @@
 struct Segment {
 	int begin;
 	int end;
-	long double sum;
+	double sum;
 };
 
 double data[DATA_SIZE];
@@ -36,24 +36,24 @@ int main(int argc, char const *argv[]){
 	}
 
 //****************************************************************************
-//  average without threads
+//  Avarage without threads
 //****************************************************************************
-    long double average = 0;
+    double avarage = 0;
     
     clock_t begin = clock();
 
 	for (int i = 0; i < DATA_SIZE; i++)
 	{
-		average  = average + data[i];
+		avarage  = avarage + data[i];
 	}
-    average = average / DATA_SIZE;
+    avarage = avarage / DATA_SIZE;
 
     clock_t end = clock();
     double timeSpent1 = (double)(end - begin) / CLOCKS_PER_SEC;
     
-    printf("average - %Lg\naverage time without threads - %lg\n\n", average, timeSpent1);
+    printf("Avarage - %lg\nAvarage time without threads - %lg\n\n", avarage, timeSpent1);
 //****************************************************************************
-    average = 0;
+    avarage = 0;
 
     pthread_t threads[NUMBER_OF_CORES];
 
@@ -67,7 +67,7 @@ int main(int argc, char const *argv[]){
         segments[i].sum = 0;
     }
 //****************************************************************************
-//  average with threads
+//  Avarage with threads
 //****************************************************************************
     begin = clock();
 	
@@ -81,18 +81,18 @@ int main(int argc, char const *argv[]){
     for (int i = 0; i < NUMBER_OF_CORES; i++)
     {
         pthread_join(threads[i], (void **) NULL);  
-        average += segments[i].sum;      
+        avarage += segments[i].sum;      
     }
-    average = average / DATA_SIZE;
+    avarage = avarage / DATA_SIZE;
 
     end = clock();
     double timeSpent2 = (double)(end - begin) / CLOCKS_PER_SEC;
 
-    printf("average - %Lg\naverage time with threads - %lg\n\n", average, timeSpent2);
+    printf("Avarage - %lg\nAvarage time with threads - %lg\n\n", avarage, timeSpent2);
     double acceleration = timeSpent1 / timeSpent2;
     if (acceleration > 1)    
     {
-        printf("Threads work good =) average was calculated faster in %lg times\n\n", acceleration);
+        printf("Threads work good =) Avarage was calculated faster in %lg times\n\n", acceleration);
     }
     else 
     {
@@ -101,18 +101,18 @@ int main(int argc, char const *argv[]){
 //****************************************************************************
 // Dispersion without Threads
 //****************************************************************************
-    long double dispersion = 0;
+    double dispersion = 0;
 
     begin = clock();
     for (int i = 0; i < DATA_SIZE; ++i)
     {
         dispersion += data[i] * data[i];
     }
-    dispersion = dispersion / DATA_SIZE - average * average;
+    dispersion = dispersion / DATA_SIZE - avarage * avarage;
     
     end = clock();
     double timeSpent3 = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Dispersion - %Lg\nDispersion time without Threads - %lg\n\n",dispersion, timeSpent3 );
+    printf("Dispersion - %lg\nDispersion time without Threads - %lg\n\n",dispersion, timeSpent3 );
 //****************************************************************************
 // Dispersion with Threads
 //****************************************************************************
@@ -131,16 +131,16 @@ int main(int argc, char const *argv[]){
         pthread_join(threads[i], (void **) NULL);  
         dispersion += segments[i].sum;      
     }
-    dispersion = dispersion / DATA_SIZE - average * average;
+    dispersion = dispersion / DATA_SIZE - avarage * avarage;
     
     end = clock();
     double timeSpent4 = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Dispersion - %Lg\nDispersion time with Threads - %lg\n\n",dispersion, timeSpent4 );
+    printf("Dispersion - %lg\nDispersion time with Threads - %lg\n\n",dispersion, timeSpent4 );
 	
     acceleration = timeSpent3 / timeSpent4;
     if (acceleration > 1)    
     {
-        printf("Threads work good =) Dispersion was calculated faster in %g times\n\n", acceleration);
+        printf("Threads work good =) Dispersion was calculated faster in %lg times\n\n", acceleration);
     }
     else 
     {
@@ -154,7 +154,7 @@ void* sum(void* arg) {
     struct Segment* thread_segment = (struct Segment*)(arg); 
     int begin = thread_segment -> begin;
     int end = thread_segment -> end;
-    long double result = 0;
+    double result = 0;
 
     for (int i = begin ; i < end; i++)
     {
@@ -170,7 +170,7 @@ void* disp(void* arg) {
     struct Segment* thread_segment = (struct Segment*)(arg); 
     int begin = thread_segment -> begin;
     int end = thread_segment -> end;
-    long double result = 0;
+    double result = 0;
 
     for (int i = begin ; i < end; i++)
     {
