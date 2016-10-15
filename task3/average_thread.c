@@ -16,6 +16,13 @@
 * Вроде работает правильно, но ускорение в нитях выдает время от времени
 */
 
+/*
+ К сожалению, я дезынформировал всю вашу группу по поводу работы clock'а:
+ http://stackoverflow.com/questions/2962785/c-using-clock-to-measure-time-in-multi-threaded-programs
+ 
+ Там написано, как это по-хорошему делается.
+ */
+
 struct Segment {
 	int begin;
 	int end;
