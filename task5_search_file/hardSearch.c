@@ -49,6 +49,7 @@ void find(char *path, int deep,char *filename){
 
     while((current = readdir(dirp)) != NULL)
     {
+            /* FIXIT: magic number */
             char addres[100000];
             strcpy(addres, path);
             strcat(addres, "/");
@@ -56,6 +57,7 @@ void find(char *path, int deep,char *filename){
             stat(addres, &buf);
             strcpy(directory, addres);
 
+            /* FIXIT: у вас имя не может быть одновременно .. и . */
             if (!(strcmp(current -> d_name, "..") && strcmp(current -> d_name, ".")))
             {
                 continue;
