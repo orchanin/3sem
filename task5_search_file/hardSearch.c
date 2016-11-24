@@ -8,6 +8,9 @@
 
 int deep = 0;
 int isFound = 0;
+/*
+ * FIXIT: magic number 2000
+ */
 char directory[2000];
 
 
@@ -27,6 +30,10 @@ void find(char *path, int deep,char *filename){
     DIR *dirp = opendir(path);
     if (dirp == NULL)
     {
+        /*
+         * FIXIT:
+         * Вы убивате процесс тут. Этого делать не надо, ведь вы после выполнения ф-и какой-то ещё код хотите выполнять. 
+         */
         exit(2);
     }
     struct dirent *current;           
@@ -50,7 +57,9 @@ void find(char *path, int deep,char *filename){
 
     while((current = readdir(dirp)) != NULL)
     {
-            
+            /*
+             * address
+             */
             char addres[MAX_PATH_LENG];
             strcpy(addres, path);
             strcat(addres, "/");

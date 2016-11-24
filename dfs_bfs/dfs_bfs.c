@@ -133,6 +133,10 @@ void DFS(struct stack * s, int dir) {
         for (i = dir; i < N; i++)
         {
             if ( graph[dir][i] ) {
+              /*
+               * FIXIT:
+               * вы либо используете свою структуру стека, либо используете рекурсию. в данном коде от s ничего не зависит и её можно просто удалить. 
+               */
                 push(s, i + 1);
                 DFS(s, i);
             }
@@ -146,6 +150,9 @@ void BFS(struct queue *queue)
     int i;
     while (!queue_isempty(queue))
     {
+        /*
+         * есть стандартные названия для операций со стеком и с очередью. лучше придерживаться их.
+         */
         dir = queue_remove(queue);
         printf("%d ", dir + 1);
         for (i = dir; i < N; i++)
