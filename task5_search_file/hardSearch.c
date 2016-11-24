@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <string.h>
 
+#define MAX_PATH_LENG 10000
 
 int deep = 0;
 int isFound = 0;
@@ -49,18 +50,21 @@ void find(char *path, int deep,char *filename){
 
     while((current = readdir(dirp)) != NULL)
     {
-            /* FIXIT: magic number */
-            char addres[100000];
+            
+            char addres[MAX_PATH_LENG];
             strcpy(addres, path);
             strcat(addres, "/");
             strcat(addres, current -> d_name);
             stat(addres, &buf);
             strcpy(directory, addres);
 
-            /* FIXIT: у вас имя не может быть одновременно .. и . */
-            if (!(strcmp(current -> d_name, "..") && strcmp(current -> d_name, ".")))
+            if (!(strcmp(current -> d_name, "..") == 0))
             {
                 continue;
+            }
+            if (strcmp(current -> d_name, ".") == 0)
+            {
+                continue
             }
             if (S_ISDIR(buf.st_mode)) {
                 if (deep > 0){
