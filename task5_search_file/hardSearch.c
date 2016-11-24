@@ -58,13 +58,13 @@ void find(char *path, int deep,char *filename){
             stat(addres, &buf);
             strcpy(directory, addres);
 
-            if (!(strcmp(current -> d_name, "..") == 0))
+            if (strcmp(current -> d_name, "..") == 0)
             {
                 continue;
             }
             if (strcmp(current -> d_name, ".") == 0)
             {
-                continue
+                continue;
             }
             if (S_ISDIR(buf.st_mode)) {
                 if (deep > 0){
