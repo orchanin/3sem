@@ -5,13 +5,11 @@
 #include <string.h>
 
 #define MAX_PATH_LENG 10000
-
+#define MAX_DIR_NAME_LENGTH 2000
 int deep = 0;
 int isFound = 0;
-/*
- * FIXIT: magic number 2000
- */
-char directory[2000];
+
+char directory[MAX_DIR_NAME_LENGTH];
 
 
 void find(char *path, int deep, char *filename);
@@ -28,14 +26,11 @@ int main(int argc, char *argv[])
 void find(char *path, int deep,char *filename){
     
     DIR *dirp = opendir(path);
-    if (dirp == NULL)
-    {
-        /*
-         * FIXIT:
-         * Вы убивате процесс тут. Этого делать не надо, ведь вы после выполнения ф-и какой-то ещё код хотите выполнять. 
-         */
-        exit(2);
-    }
+    /* 
+    * ок, но это же была просто дополнительная проверка
+    * на случай, если при открытии директории произойдет ошибка
+    * программа завершалась с нужным кодом ошибки
+    */
     struct dirent *current;           
     struct stat buf;
 
@@ -57,15 +52,13 @@ void find(char *path, int deep,char *filename){
 
     while((current = readdir(dirp)) != NULL)
     {
-            /*
-             * address
-             */
-            char addres[MAX_PATH_LENG];
-            strcpy(addres, path);
-            strcat(addres, "/");
-            strcat(addres, current -> d_name);
-            stat(addres, &buf);
-            strcpy(directory, addres);
+            
+            char address[MAX_PATH_LENG];
+            strcpy(address, path);
+            strcat(address, "/");
+            strcat(address, current -> d_name);
+            stat(address, &buf);
+            strcpy(directory, address);
 
             if (strcmp(current -> d_name, "..") == 0)
             {
@@ -77,7 +70,7 @@ void find(char *path, int deep,char *filename){
             }
             if (S_ISDIR(buf.st_mode)) {
                 if (deep > 0){
-                    find(addres, deep - 1, filename);
+                    find(address, deep - 1, filename);
                 }
             }
     }     
